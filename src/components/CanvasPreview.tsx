@@ -26,7 +26,14 @@ export function CanvasPreview() {
             alt="Canvas"
             height={900}
             width={1600}
-            className="relative bg-card border border-border rounded-2xl shadow-2xl overflow-hidden"
+            className="relative bg-card border border-border rounded-2xl shadow-2xl overflow-hidden hidden sm:block"          />
+          <Image
+            src="/Canvas_Mobile.png"
+            alt="Canvas"
+            height={900}
+            width={1600}
+
+            className="relative bg-card border border-border rounded-2xl shadow-2xl overflow-hidden sm:hidden block"
           />
         </div>
       </motion.div>
