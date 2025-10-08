@@ -1,16 +1,12 @@
 import Image from "next/image";
 import React from "react";
-import Link from "next/link"; // Assuming you use next/link for client-side navigation
+import Link from "next/link";
 import { Button } from "./ui/button";
-// import { ModeToggle } from "./ModeToggle"; // Assuming you'd have a component for this
+import { Authenticated, Unauthenticated } from "convex/react";
+import { SignIn, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
+import UserStored from "./UserStored";
+import { ArrowRight } from "lucide-react";
 
-/**
- * @typedef {object} NavItem
- * @property {string} href - The destination path.
- * @property {string} label - The text displayed for the link.
- */
-
-// Define your main navigation items
 const navItems = [
   { href: "/", label: "Home" },
   { href: "/features", label: "Features" },
@@ -20,7 +16,7 @@ const navItems = [
 
 export const Navbar = () => {
   return (
-    <header className="sticky top-5 z-50 bg-white/80 backdrop-blur-sm border-b border-gray-200 dark:bg-gray-900/80 dark:border-gray-800 border rounded-4xl shadow-sm min-w-[calc(100%-2rem)] mx-4">
+    <header className="sticky top-5 z-50 bg-white/80 backdrop-blur-sm border-b border-gray-200 dark:bg-gray-900/80 dark:border-gray-800 border rounded-4xl min-w-[calc(100%-2rem)] mx-4 shadow-xl">
       <nav className="h-16 flex items-center justify-between max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <Link href="/" className="flex items-center space-x-2 flex-shrink-0">
           <Image
@@ -55,12 +51,24 @@ export const Navbar = () => {
           {/* <ModeToggle /> */}
 
           <div className="flex items-center">
-            <Button variant="elevated" asChild>
-              <Link href="/signin">Sign In</Link>
-            </Button>
-            <Button variant="elevated" asChild>
-              <Link href="/signup">Sign Up</Link>
-            </Button>
+            <Authenticated>
+              <UserStored />
+              <Button>
+                <Link href="/dashboard">
+                  Dashboard
+                  <ArrowRight className="ml-2 hover:ml-4 transition-transform duration-300" />
+                </Link>
+              </Button>
+              <UserButton />
+            </Authenticated>
+            <Unauthenticated>
+              <Button>
+                <SignInButton mode="modal" />
+              </Button>
+              <Button>
+                <SignUpButton mode="modal" />
+              </Button>
+            </Unauthenticated>
           </div>
         </div>
       </nav>

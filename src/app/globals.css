@@ -120,3 +120,15 @@
     @apply bg-background text-foreground;
   }
 }
+
+* {
+  cursor: none !important;
+}
+html, body {
+  @apply h-full w-full;
+}
+input,
+textarea,
+select {
+  cursor: text !important;
+}
